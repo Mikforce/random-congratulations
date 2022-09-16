@@ -40,12 +40,13 @@ def telegram_bot(token):
         rez = ran(dear=dear, wish=wish, be=be, empty=empty)
         rez1 = random.SystemRandom().choice(he1)
         rez2 = random.SystemRandom().choice(web)
-
-
+        qqq = str(rez)
+        res_str = qqq.translate({ord(i): None for i in '()'})
+        qqqq = res_str.translate({ord(i): None for i in "'"})
 
         if call.message:
             if call.data == 'she':
-                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=str(rez))
+                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=str(qqqq))
             elif call.data == 'he':
                 bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=str(rez1))
             elif call.data == 'web':
