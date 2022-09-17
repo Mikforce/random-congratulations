@@ -5,12 +5,8 @@ import random
 from text import *
 from auth_date import token
 
-
-
 def telegram_bot(token):
     bot = telebot.TeleBot(token)
-
-
 
     @bot.message_handler(commands=['button'])
     def button(message):
@@ -26,35 +22,28 @@ def telegram_bot(token):
                                       'понравиться повтори все с начала и я подберу что то получше ',
                      reply_markup=markup)
 
-
     @bot.callback_query_handler(func=lambda call: True)
     def callback(call):
-        def ran(dear, wish, be, empty):
-            item = random.SystemRandom().choice(dear)
-            item1 = random.SystemRandom().choice(wish)
-            item2 = random.SystemRandom().choice(be)
-            item3 = random.SystemRandom().choice(empty)
+        def rand(str):
+            item = random.SystemRandom().choice(str)
+            return item
 
-            return item, item1, item2, item3
+        rez = rand(dear) + rand(wish) + rand(be) + rand(empty)
+        rez1 = rand(he1)
+        rez2 = rand(web)
 
-        rez = ran(dear=dear, wish=wish, be=be, empty=empty)
-        rez1 = random.SystemRandom().choice(he1)
-        rez2 = random.SystemRandom().choice(web)
-        qqq = str(rez)
-        res_str = qqq.translate({ord(i): None for i in '()'})
-        qqqq = res_str.translate({ord(i): None for i in "'"})
+        def botmsg(text):
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=text)
 
         if call.message:
             if call.data == 'she':
-                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=str(qqqq))
+                botmsg(rez)
             elif call.data == 'he':
-                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=str(rez1))
+                botmsg(rez1)
             elif call.data == 'web':
-                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=str(rez2))
+                botmsg(rez2)
             elif call.data == 'img':
-                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=str(f'https://pozdravik.com/prikolnye/besplatnye-{random.randint(1, 50)}.jpg'))
-
-
+                botmsg(str(f'https://pozdravik.com/prikolnye/besplatnye-{random.randint(1, 50)}.jpg'))
 
     bot.polling()
 
