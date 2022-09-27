@@ -18,8 +18,7 @@ def telegram_bot(token):
         item4 = types.InlineKeyboardButton('Картинка', callback_data='img')
         markup.add(item, item2, item3,item4)
 
-        bot.send_message(message.chat.id, 'Привет! Выбери кого хочешь поздравить и я сгенерирую поздравление. Ели тебе не '
-                                      'понравиться повтори все с начала и я подберу что то получше ',
+        bot.send_message(message.chat.id, 'Привет! Выбери кого хочешь поздравить и я сгенерирую поздравление. Если тебе не понравится, повтори все с начала и я подберу что-то получше. ',
                      reply_markup=markup)
 
     @bot.callback_query_handler(func=lambda call: True)
